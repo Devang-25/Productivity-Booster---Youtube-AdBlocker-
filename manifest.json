@@ -1,0 +1,39 @@
+/*
+
+Productivity Booster-- Youtube AdBlocker
+Author: @devang1998
+
+Please Provide the Credits if you are Using any Party of this Proprietary Software
+
+*/
+
+
+
+{
+    "manifest_version": 2,
+    "name": "Productivity Booster- Youtube AdBlocker By Devang Sharma",
+    "description": "Skip Ads from Youtube without Lifting your Finger and Increase your Productivity :)",
+    "version": "1.0.0",
+    "icons": {
+        "16": "/images/icon16.png",
+        "48": "/images/icon48.png",
+        "128": "/images/icon128.png"
+    },
+    "browser_action": {
+        "default_popup": "popup.html",
+        "default_icon": "/images/icon128.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "all_frames": true,
+            "js": ["content.js"]
+        }
+    ],
+    "permissions": [
+        "activeTab",
+        "storage"
+    ]
+}

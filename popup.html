@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Productivity Booster - Youtube AdBlocker</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto" type="text/css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        html,
+        body {
+            font-family: 'Roboto';
+            font-size: 14px;
+            margin: 0;
+            min-height: 180px;
+            padding: 0;
+            width: 276px;
+        }
+
+        h1 {
+            font-family: 'Roboto';
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0;
+            color: #BA0000;
+        }
+
+        a:link,
+        a:visited {
+            outline: 0;
+            text-decoration: none;
+        }
+
+        img {
+            width: 30px;
+            ;
+        }
+
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-content-select {
+            display: flex;
+            height: 28px;
+            justify-content: space-around;
+        }
+
+        .modal-icons {
+            display: flex;
+            justify-content: space-between;
+            height: 50px;
+            width: 100%;
+            /* margin-top: 20px; */
+            padding-top: 10px;
+            border-top: 3px solid #BA0000;
+        }
+
+        .logo {
+            display: flex;
+            font-size: 40px;
+            padding-bottom: 5px;
+            padding-top: 16px;
+            justify-content: center;
+            align-items: center;
+            cursor: default;
+        }
+
+
+        .logo-icon {
+            width: 15%;
+            height: auto;
+            margin-right: 2.5px;
+            vertical-align: text-bottom;
+        }
+
+        .logo-icon~span {
+            margin-left: 2.5px;
+        }
+
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 22px;
+        }
+
+        .flex {
+            opacity: .5;
+            width: 120px;
+            transition: opacity 0.2s ease-in-out;
+            display: flex;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .flex:hover {
+            opacity: 1;
+        }
+
+        .flex .fa {
+            font-size: 40px;
+            color: #ff0000;
+        }
+
+        .auto {
+            display: flex;
+            cursor: pointer;
+            margin-left: 30px;
+            border: 2px solid #ff0000;
+            margin-right: 5px;
+            border-radius: 50px;
+            transition: all .5s ease-out;
+        }
+
+        .auto span {
+            align-self: center;
+            height: 100%;
+        }
+
+        .auto.active>i {
+            color: white;
+        }
+
+        .block {
+            display: flex;
+            cursor: pointer;
+            margin-right: 30px;
+            border: 2px solid #ff0000;
+            margin-left: 5px;
+            border-radius: 50px;
+            transition: all .5s ease-out;
+        }
+
+        .block i {
+            align-self: center;
+        }
+
+        .auto-icon {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            color: black;
+            border: 2px solid #ff0000;
+            align-items: center;
+            border-top-left-radius: 10px;
+            cursor: pointer;
+            transition: all .5s ease-out;
+            border-right: none;
+        }
+
+        .auto.hover {
+            background-color: rgb(255, 0, 0, .5);
+        }
+
+        .auto.hover>.auto-icon-text {
+            color: white;
+        }
+
+        .auto-icon:hover {
+            background-color: rgb(255, 0, 0, .5);
+        }
+
+        .auto:hover~.auto-icon {
+            background-color: rgb(255, 0, 0, .5);
+            color: white;
+        }
+
+        .auto-icon:hover>.auto-select {
+            color: white;
+        }
+
+        .auto-icon:active {
+            background-color: #ff0000;
+        }
+
+        .active {
+            background-color: #ff0000;
+        }
+
+        .auto-icon.active>.auto-select {
+            color: white;
+        }
+
+        .block-icon {
+            display: flex;
+            border: 2px solid #ff0000;
+            width: 100%;
+            color: black;
+            justify-content: center;
+            align-items: center;
+            border-top-right-radius: 10px;
+            cursor: pointer;
+            transition: all .5s ease-out;
+            border-left: none;
+        }
+
+        .block.hover {
+            background-color: rgb(255, 0, 0, .5);
+        }
+
+        .block.hover>.block-icon-text {
+            color: white;
+        }
+
+        .block-icon:hover {
+            background-color: rgb(255, 0, 0, .5);
+        }
+
+        .block:hover~.block-icon {
+            background-color: rgb(255, 0, 0, .5);
+        }
+
+        .block:hover~.block-icon>.block-select {
+            color: white;
+        }
+
+        .block-icon:hover>.block-select {
+            color: white;
+        }
+
+
+
+        .block-icon:active {
+            background-color: #ff0000;
+        }
+
+
+        .block-icon.active>.block-select {
+            color: white;
+        }
+
+        .block.active>.block-icon-text {
+            color: white;
+        }
+
+        .icon-grouping {
+            display: flex;
+            width: 100%;
+        }
+
+        .auto-select {
+            font-size: 20px;
+        }
+
+        .block-select {
+            font-size: 20px;
+        }
+
+        .feature-help-tab {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .feature-tab {
+            width: 25%;
+            padding: 5px;
+            font-size: 20px;
+            color: #BA0000;
+            border: 3px solid #BA0000;
+            border-right: 1.5px solid #BA0000;
+            border-bottom: none;
+            text-align: center;
+            border-top-left-radius: 10px;
+            cursor: pointer;
+            transition: all .5s ease-out;
+        }
+
+        .feature-tab:hover {
+            background-color: rgb(186, 0, 0, .5);
+            color: white;
+        }
+
+        .feature-tab.active {
+            background-color: #BA0000;
+            color: white;
+        }
+
+        .feature-tab:active {
+            background-color: #BA0000;
+            color: white;
+        }
+
+        .help-tab {
+            width: 25%;
+            padding: 5px;
+            font-size: 20px;
+            color: #BA0000;
+            border: 3px solid #BA0000;
+            border-left: 1.5px solid #BA0000;
+            border-bottom: none;
+            text-align: center;
+            border-top-right-radius: 10px;
+            cursor: pointer;
+            transition: all .5s ease-out;
+        }
+
+        .help-tab:hover {
+            background-color: rgb(186, 0, 0, .5);
+            color: white;
+        }
+
+        .help-tab.active {
+            background-color: #BA0000;
+            color: white;
+        }
+
+        .help-tab:active {
+            background-color: #BA0000;
+            color: white;
+        }
+
+        .holder {
+            width: 25%;
+            border-bottom: 3px solid #BA0000;
+        }
+
+        /* #dedbd6 */
+        .extension-container {
+            background-color: lightgoldenrodyellow;
+            padding-bottom: 5px;
+        }
+
+        .block-icon-text:hover {
+            border-radius: 50px;
+            color: white;
+            background-color: rgb(255, 0, 0, .5);
+        }
+
+        .block-icon-text:active {
+            border-radius: 50px;
+            color: white;
+            background-color: #ff0000;
+        }
+
+        .auto-icon-text {
+            transition: all .5s ease-out;
+        }
+
+        .block-icon-text {
+            transition: all .5s ease-out;
+        }
+
+        .auto-icon-text:hover {
+            background-color: rgb(255, 0, 0, .5);
+            color: white;
+            height: 100%;
+            border-radius: 50px;
+        }
+
+        .auto-icon-text:active {
+            background-color: #ff0000;
+            color: white;
+            border-radius: 50px;
+        }
+
+        .youtube-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: default;
+        }
+
+        .youtube-header-icon {
+            color: #ff0000;
+            margin: 15px;
+            margin-top: 5px;
+            margin-right: 5px;
+            font-size: 40px;
+            cursor: pointer;
+        }
+
+        .youtube-header-icon>a {
+            color: #ff0000;
+        }
+
+        .youtube-header-text {
+            font-family: 'Roboto';
+            font-weight: 700;
+            margin: 15px;
+            margin-top: 5px;
+            margin-left: 5px;
+            font-size: 30px;
+        }
+
+        .header-text-blocker {
+            color: #ff0000;
+        }
+
+        .donate {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .donate>i,
+        .donate>a {
+            padding-top: 10px;
+            margin: .5px;
+        }
+
+        .reverse {
+            display: flex;
+            flex-direction: row-reverse;
+            flex-grow: 1;
+        }
+
+        .forward {
+            display: flex;
+            flex-grow: 1;
+        }
+
+        .help-content {
+            transform: translateY(-10px);
+        }
+
+        .mode-descriptions {
+            display: flex;
+            flex-direction: column;
+            margin-top: 5px;
+        }
+
+        .auto-help-title {
+            width: 98%;
+            color: #ff0000;
+            border-bottom: 2px solid #BA0000;
+            box-shadow: 0px 1px;
+            font-weight: 700;
+            font-size: 20px;
+            text-align: center;
+            margin-left: 0px !important;
+        }
+
+        .block-help-title {
+            width: 98%;
+            color: #ff0000;
+            border-bottom: 2px solid #BA0000;
+            box-shadow: 0px 1px;
+            font-weight: 700;
+            font-size: 20px;
+            text-align: center;
+            margin-left: 0px !important;
+        }
+
+        .auto-help {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .auto-help div {
+            margin-bottom: 5px;
+            margin-left: 5px;
+        }
+
+        .auto-help div img {
+            width: 5%;
+            height: auto;
+            margin-right: 2.5px;
+        }
+
+        .help-footer {
+            font-size: 10px;
+            margin: 0 2px;
+        }
+
+        .modal-content-ads-blocked {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .auto-ads-blocked {
+            align-items: center;
+            display: flex;
+            height: 100px;
+            width: 100%;
+        }
+
+        .auto-ads-blocked i {
+            color: #BA0000;
+            font-size: 160px;
+            transform: translateX(-100%);
+            min-width: 276px;
+            justify-content: center;
+            display: flex;
+        }
+
+        .auto-ads-blocked-number {
+            transform: translateX(0%);
+            font-size: 40px;
+            min-width: 276px;
+            display: flex;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .block-ads-blocked {
+            align-items: center;
+            display: flex;
+            height: 100px;
+            width: 100%;
+        }
+
+        .block-ads-blocked i {
+            color: #BA0000;
+            font-size: 130px;
+            transform: translateX(-100%);
+            min-width: 276px;
+            justify-content: center;
+            display: flex;
+        }
+
+        .block-ads-blocked-number {
+            transform: translateX(0%);
+            font-size: 40px;
+            min-width: 276px;
+            display: flex;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .ads-blocked-header {
+            display: flex;
+            font-size: 20px;
+            font-weight: 700;
+            width: 90%;
+            border-bottom: 2px solid #BA0000;
+            box-shadow: 0 2px;
+            justify-content: center;
+            margin-top: 10px;
+            margin-bottom: 25px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="extension-container">
+        <div class="modal-header">
+            <h1 class="logo">
+                <img src="images/block.svg" alt="" class="logo-icon">
+                <span>Productivity Booster</span>
+            </h1>
+            <div class="youtube-header">
+                <div class="youtube-header-icon">
+                    <a href="https://www.youtube.com/" target="_blank">
+                        <i class="fa fa-youtube"></i>
+                    </a>
+                </div>
+                <div class="youtube-header-text">
+                    <span>Ad<span class="header-text-blocker">Blocker</span></span>
+                </div>
+            </div>
+        </div>
+        <div class="feature-help-section">
+            <div class="feature-help-tab">
+                <div class="holder"></div>
+                <div class="feature-tab">Mode</div>
+                <div class="help-tab">Help</div>
+                <div class="holder"></div>
+            </div>
+
+            <!-- ***************************MODAL CONTENT****************************** -->
+            <div class="modal-content">
+                <div class="modal-content-select">
+                    <div class="forward">
+                        <div class="auto">
+                            <i class="auto-icon-text  material-icons">autorenew</i>
+                        </div>
+                        <div class="auto-icon"><span class="auto-select">Auto</span></div>
+                    </div>
+                    <div class="reverse">
+                        <div class="block">
+                            <i class="block-icon-text material-icons">block</i>
+                        </div>
+                        <div class="block-icon"><span class="block-select">Block</span></div>
+                    </div>
+                </div>
+                <div class="modal-content-ads-blocked">
+                    <div class="ads-blocked-header">
+                        <div class="ads-blocked-header-text">
+                            Ads avoided:
+                        </div>
+
+                    </div>
+                    <!-- *****AUTO COUNTER***** -->
+                    <div class="auto-ads-blocked">
+                        <div class="auto-ads-blocked-number">0</div>
+                        <i class="material-icons">autorenew</i>
+                    </div>
+
+                    <!-- *****BLOCK COUNTER***** -->
+                    <div class="block-ads-blocked" style="display: none">
+                        <div class="block-ads-blocked-number">5</div>
+                        <i class="material-icons">block</i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ***************************HELP CONTENT****************************** -->
+            <div class="help-content" style="display: none">
+                <div class="mode-descriptions">
+                    <div class="auto-help">
+                        <div class="auto-help-title">
+                            Auto
+                        </div>
+                        <div>
+                            <img src="images/block.svg">
+                            Will not fully block out ads
+                        </div>
+                        <div>
+                            <img src="images/block.svg">
+                            Skips automatically upon sight of "skip" button
+                        </div>
+                        <div>
+                            <img src="images/block.svg">
+                            Credits content creators with ad revenue
+                        </div>
+                    </div>
+                    <div class="auto-help">
+                        <div class="auto-help-title">
+                            Block
+                        </div>
+                        <div>
+                            <img src="images/block.svg">
+                            Fully block out all possible ads as if there were none at all
+                        </div>
+                        <div>
+                            <img src="images/block.svg">
+                            Some ads are unskippable that no ad blocker to date can remove
+                        </div>
+                        <div>
+                            <img src="images/block.svg">
+                            Only credits content creators with those such ads
+                        </div>
+                    </div>
+                </div>
+                <div class="help-footer">
+                    Any other issues contact me via the preferred social media links below or at
+                    <a href="https://www.instagram.com/idevangsharma/" target="_blank">idevangsharma</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-icons">
+            <div class="flex">
+                <a href="https://www.instagram.com/idevangsharma/" target="_blank">
+                    <i class="fa fa-instagram"></i>
+                </a>
+            </div>
+            <div class="flex">
+                <a href="https://github.com/Devang-25" target="_blank">
+                    <i class="fa fa-github"></i>
+                </a>
+            </div>
+            <div class="flex">
+                <a href="https://www.linkedin.com/in/devang25/" target="_blank">
+                    <i class="fa fa-linkedin"></i>
+                </a>
+            </div>
+            <div class="flex">
+                <a href="https://codepen.io/idevangsharma" target="_blank">
+                    <i class="fa fa-codepen"></i>
+                </a>
+            </div>
+        </div>
+        <div class="donate">
+            <i class="fa fa-paypal"></i>
+            <a href="https://paypal.me/devang1998?locale.x=en_GB"
+                target="_blank">Please Donate :)</a>
+        </div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+
+
+</html>
